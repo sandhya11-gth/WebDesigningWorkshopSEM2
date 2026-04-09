@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result Calculator</title>
+</head>
+
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class= "container">
+        <h2>student result calculator</h2>
+        <label>enter number of subjects</label>
+      <input type="number"id = "subjects"> <br><br>
+      <button onclick="calculate result()">calculate result</button>
+      
+    <div id="result"></div>
+    </div>
+    
+
+
+
+Enter number of subjects:
+<input type="number" id="subjects">
+<button onclick="calculateResult()">Calculate Result</button>
+
+<p id="result"></p>
+
+<script>
+function calculateResult() {
+    let n = document.getElementById("subjects").value;
+    let total = 0;
+
+    for (let i = 1; i <= n; i++) {
+        let marks = parseFloat(prompt("Enter marks for subject " + i));
+        total += marks;
+    }
+
+    let percentage = (total / (n * 100)) * 100;
+    let grade = "";
+
+    if (percentage >= 90) {
+        grade = "A";
+    } 
+    else if (percentage >= 80) {
+        grade = "B";
+    } 
+    else if (percentage >= 70) {
+        grade = "C";
+    } 
+    else if (percentage >= 60) {
+        grade = "D";
+    } 
+    else {
+        grade = "F";
+    }
+
+    document.getElementById("result").innerHTML =
+        "Total: " + total +
+        "<br>Percentage: " + percentage.toFixed(2) + "%" +
+        "<br>Grade: " + grade;
+}
+</script>
+
+</body>
+</html>
