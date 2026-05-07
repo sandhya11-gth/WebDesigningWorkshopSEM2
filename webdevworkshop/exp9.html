@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Experiment 9</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 420px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #999;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 25px;
+      background-color: green;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: darkgreen;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    #successMessage {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .users-box {
+      margin-top: 20px;
+      background-color: #eaf5ea;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .users-box h2 {
+      text-align: center;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Registration Form</h1>
+
+    <form id="registerForm">
+
+      <input type="text" id="name" placeholder="Enter Name">
+      <div class="error" id="nameError"></div>
+
+      <input type="email" id="email" placeholder="Enter Email">
+      <div class="error" id="emailError"></div>
+
+      <input type="password" id="password" placeholder="Enter Password">
+      <div class="error" id="passwordError"></div>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <h3 id="successMessage"></h3>
+
+    <div class="users-box">
+      <h2>Registered Users</h2>
+      <ul id="userList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const userList = document.getElementById("userList");
+    const successMessage = document.getElementById("successMessage");
+
+    let users = [];
+
+    // Fetch API Data using useEffect concept
+    // Example API fetch simulation
+    window.onload = function () {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(response => response.json())
+        .then(data => {
+          console.log("API Data Fetched:", data);
+        });
+    };
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+
+      // Clear old errors
+      nameError.innerHTML = "";
+      emailError.innerHTML = "";
+      passwordError.innerHTML = "";
+      successMessage.innerHTML = "";
+
+      let isValid = true;
+
+      // Validation
+      if (name === "") {
+        nameError.innerHTML = "Name is required";
+        isValid = false;
+      }
+
+      if (email === "") {
+        emailError.innerHTML = "Email is required";
+        isValid = false;
+      } 
+      else if (!email.includes("@")) {
+        emailError.innerHTML = "Enter valid email";
+        isValid = false;
+      }
+
+      if (password === "") {
+        passwordError.innerHTML = "Password is required";
+        isValid = false;
+      } 
+      else if (password.length < 6) {
+        passwordError.innerHTML = "Password must be at least 6 characters";
+        isValid = false;
+      }
+
+      // Success
+      if (isValid) {
+        successMessage.innerHTML = "Registration Successful!";
+
+        users.push({
+          name: name,
+          email: email
+        });
+
+        displayUsers();
+
+        form.reset();
+      }
+    });
+
+    // Display Registered Users
+    function displayUsers() {
+      userList.innerHTML = "";
+
+      users.forEach(function(user) {
+        const li = document.createElement("li");
+        li.innerHTML = user.name + " - " + user.email;
+        userList.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>

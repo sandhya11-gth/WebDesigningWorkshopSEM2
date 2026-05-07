@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Information</title>
+
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 350px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid black;
+      text-align: center;
+    }
+
+    .card {
+      background-color: white;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px gray;
+    }
+
+    .card h2 {
+      color: #0b3c5d;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    function Student(props) {
+      return (
+        <div className="card">
+          <h2>{props.name}</h2>
+          <p>Course: {props.course}</p>
+          <p>Marks: {props.marks}</p>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <div className="container">
+          <h1>Student Information</h1>
+
+          <Student
+            name="Sandhya Barolia"
+            course="Computer Science"
+            marks="85"
+          />
+
+          <Student
+            name="Sagarika Srivastava"
+            course="Information Technology"
+            marks="92"
+          />
+
+          <Student
+            name="Sakshi Yadav"
+            course="Electronics"
+            marks="78"
+          />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
