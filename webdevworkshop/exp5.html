@@ -1,0 +1,140 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Salary Management</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #e6e6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: #f5f5f5;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 10px gray;
+            width: 400px;
+        }
+
+        input {
+            display: block;
+            width: 90%;
+            margin: 8px auto;
+            padding: 8px;
+        }
+
+        button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .output {
+            margin-top: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h3>Employee Salary Management System</h3>
+
+    <input type="text" id="name" placeholder="Employee Name">
+    <input type="number" id="id" placeholder="Employee ID">
+    <input type="number" id="salary" placeholder="Salary">
+    <input type="text" id="dept" placeholder="Department">
+
+    <button onclick="addEmployee()">Add Employee</button><br>
+
+    <button onclick="displayAll()">Display All</button>
+    <button onclick="filterSalary()">Salary > 50000</button>
+    <button onclick="totalSalary()">Total Salary</button>
+    <button onclick="avgSalary()">Average Salary</button><br>
+    <button onclick="countDept()">Count by Department</button>
+
+    <div class="output" id="output"></div>
+</div>
+
+<script>
+let employees = [];
+
+// Add employee
+function addEmployee() {
+    let emp = {
+        name: document.getElementById("name").value,
+        id: document.getElementById("id").value,
+        salary: Number(document.getElementById("salary").value),
+        dept: document.getElementById("dept").value
+    };
+
+    employees.push(emp);
+    alert("Employee Added Successfully!");
+}
+
+// Display all
+function displayAll() {
+    let result = "<b>All Employees:</b><br>";
+
+    employees.forEach(e => {
+        result += `Name: ${e.name} | ID: ${e.id} | Salary: ₹${e.salary} | Dept: ${e.dept}<br>`;
+    });
+
+    document.getElementById("output").innerHTML = result;
+}
+
+// Filter salary > 50000
+function filterSalary() {
+    let filtered = employees.filter(e => e.salary > 50000);
+
+    let result = "<b>Employees with Salary ≥ ₹50,000</b><br>";
+
+    filtered.forEach(e => {
+        result += `Name: ${e.name} | Salary: ₹${e.salary}<br>`;
+    });
+
+    document.getElementById("output").innerHTML = result;
+}
+
+// Total salary
+function totalSalary() {
+    let total = employees.reduce((sum, e) => sum + e.salary, 0);
+
+    document.getElementById("output").innerHTML =
+        `<b>Total Salary Payout: ₹${total}</b>`;
+}
+
+// Average salary
+function avgSalary() {
+    let total = employees.reduce((sum, e) => sum + e.salary, 0);
+    let avg = total / employees.length || 0;
+
+    document.getElementById("output").innerHTML =
+        `<b>Average Salary: ₹${avg.toFixed(2)}</b>`;
+}
+
+// Count by department
+function countDept() {
+    let dept = prompt("Enter Department Name:");
+
+    let count = employees.filter(e => e.dept.toLowerCase() === dept.toLowerCase()).length;
+
+    document.getElementById("output").innerHTML =
+        `<b>Employees in ${dept}: ${count}</b>`;
+}
+</script>
+
+</body>
+</html>
