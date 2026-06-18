@@ -1,0 +1,117 @@
+// Abstract Class
+
+abstract class BankAccount
+{
+    private int accountNumber;
+    private String accountHolderName;
+    private double balance;
+
+    // Constructor
+    BankAccount(int accountNumber, String accountHolderName, double balance)
+    {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+    }
+
+    // Getters
+    public int getAccountNumber()
+    {
+        return accountNumber;
+    }
+
+    public String getAccountHolderName()
+    {
+        return accountHolderName;
+    }
+
+    public double getBalance()
+    {
+        return balance;
+    }
+
+    // Setter
+    public void setBalance(double balance)
+    {
+        this.balance = balance;
+    }
+
+    // Deposit Method
+    public void deposit(double amount)
+    {
+        balance += amount;
+    }
+
+    // Display Method
+    public void display()
+    {
+        System.out.println("Account Number : " + accountNumber);
+        System.out.println("Account Holder : " + accountHolderName);
+        System.out.println("Balance : " + balance);
+    }
+
+    // Abstract Method
+    abstract void calculateInterest();
+}
+
+
+// Savings Account
+
+class SavingsAccount extends BankAccount
+{
+    SavingsAccount(int accNo, String name, double balance)
+    {
+        super(accNo, name, balance);
+    }
+
+    void calculateInterest()
+    {
+        double interest = getBalance() * 0.05;
+        System.out.println("Savings Interest = " + interest);
+    }
+}
+
+
+// Current Account
+
+class CurrentAccount extends BankAccount
+{
+    CurrentAccount(int accNo, String name, double balance)
+    {
+        super(accNo, name, balance);
+    }
+
+    void calculateInterest()
+    {
+        double interest = getBalance() * 0.02;
+        System.out.println("Current Account Interest = " + interest);
+    }
+}
+
+
+// Main Class
+
+public class Main
+{
+    public static void main(String args[])
+    {
+        SavingsAccount s1 =
+            new SavingsAccount(101, "Sandhya", 10000);
+
+        CurrentAccount c1 =
+            new CurrentAccount(102, "Rahul", 15000);
+
+        s1.deposit(2000);
+        c1.deposit(3000);
+
+        System.out.println("Savings Account Details");
+        s1.display();
+        s1.calculateInterest();
+
+        System.out.println();
+
+        System.out.println("Current Account Details");
+        c1.display();
+        c1.calculateInterest();
+    }
+}
